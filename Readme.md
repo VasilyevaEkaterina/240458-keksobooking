@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Екатерина Васильева](https://up.htmlacademy.ru/javascript/10/user/240458).
-* Наставник: `Неизвестно`.
+* Наставник: [Полина Немчак](https://up.htmlacademy.ru/javascript/10/user/69724).
 
 ---
 
