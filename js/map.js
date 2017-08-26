@@ -140,12 +140,12 @@ var getFeaturesFragment = function (features) {
   return featuresFragment;
 };
 
-var lodgeTemplate = document.querySelector('#lodge-template').content;
+var lodgeTemplate = document.querySelector('#lodge-template');
 var lodgeTemplateContent = lodgeTemplate.content;
 
-var createNewDialogPanel = function (property) {
+var createNewDialogPanel = function (template, property) {
   var propertyInfo = property.offer;
-  var template = lodgeTemplateContent.cloneNode(true);
+  template = lodgeTemplateContent.cloneNode(true);
 
   var avatar = dialogTitle.querySelector('img');
   avatar.src = property.author.avatar;
