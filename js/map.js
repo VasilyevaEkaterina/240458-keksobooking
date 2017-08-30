@@ -172,3 +172,47 @@ var dialogPanelTemplate = lodgeTemplate.querySelector('.dialog__panel');
 var newDialogPanel = createNewDialogPanel(dialogPanelTemplate, properties[0]);
 
 dialog.replaceChild(newDialogPanel, dialogPanel);
+
+// EVENTS
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var pin = document.querySelector('.pin');
+var dialogClose = document.querySelector('.dialog__close');
+
+var onPinEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    pinClose();
+  }
+};
+
+var pinOpen = function () {
+  pin.classList.add('pin--active');
+  dialog.classList.remove('hidden');
+  document.addEventListener('keydown', onPinEscPress);
+};
+var pinClose = function () {
+  pin.classList.remove('pin--active');
+  dialog.classList.add('hidden');
+  document.removeEventListener('keydown', onPinEscPress);
+};
+
+pin.addEventListener('click', function () {
+  pinOpen();
+});
+
+pin.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    pinOpen();
+  }
+});
+
+dialogClose.addEventListener('click', function () {
+  pinClose();
+});
+
+dialogClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    pinClose();
+  }
+});
