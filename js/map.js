@@ -216,3 +216,27 @@ dialogClose.addEventListener('keydown', function (evt) {
     pinClose();
   }
 });
+
+// VALIDITY
+
+var typeSelect = document.getElementById('type');
+var priceInput = document.getElementById('price');
+
+
+var matchTypeAndPrice = function () {
+  if (typeSelect.selectedIndex === '0') {
+    priceInput.setAttribute('value', '0');
+  } else if (typeSelect.selectedIndex === '1') {
+    priceInput.setAttribute('value', '1000');
+  } else if (typeSelect.selectedIndex === '2') {
+    priceInput.setAttribute('value', '5000');
+  } else if (typeSelect.selectedIndex === '3') {
+    priceInput.setAttribute('value', '10000');
+  } else {
+    priceInput.setAttribute('value', '0');
+  }
+};
+
+typeSelect.addEventListener('click', function () {
+  matchTypeAndPrice();
+});
