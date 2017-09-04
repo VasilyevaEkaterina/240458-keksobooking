@@ -15,7 +15,7 @@
   <section class="tokyo">
     <img src="img/main.jpg" alt="Tokyo" width="1200" height="700">
     <div class="tokyo__filters-container">
-      <form action="#" class="tokyo__filters" autocomplete="off">
+      <form class="tokyo__filters" method="post" action="https://1510.dump.academy/keksobooking"  autocomplete="off">
         <label><select name="housing_type" id="housing_type" class="tokyo__filter">
           <option value="any" selected>Любой тип жилья</option>
           <option value="flat">Квартира</option>
@@ -70,8 +70,8 @@
     <div class="tokyo__pin-map">
       <div class="pin  pin__main"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
     </div>
-    <div id="offer-dialog" class="dialog hidden">
-      <div class="dialog__title"><img id="avatar" src="img/avatars/user01.png" alt="Avatar" width="70" height="70" tabindex="0">
+    <div id="offer-dialog" class="dialog">
+      <div class="dialog__title"><img src="img/avatars/user01.png" alt="Avatar" width="70" height="70">
         <a href="#" class="dialog__close"><img src="img/close.svg" alt="close" width="22" height="22"></a>
       </div>
       <div class="dialog__panel">
@@ -117,6 +117,7 @@
     <form class="notice__form"
           method="post"
           enctype="multipart/form-data"
+          action="https://1510.dump.academy/keksobooking"
           autocomplete="off">
       <div class="form__content">
         <div class="form__panel">
@@ -136,7 +137,7 @@
             </div>
             <div class="form__element">
               <label for="price">Цена за ночь, руб.</label>
-              <input id="price" name="price" type="number" placeholder="1000" minlength="0" maxlength="1000000" required value="">
+              <input id="price" name="price" type="number" placeholder="5000" min="0" max="1000000" step="100" value="1000" required>
             </div>
           </div>
           <div class="form__row">
@@ -278,6 +279,11 @@
   </div>
 </template>
 
-<script src="js/map.js"></script>
+<script src = "js/data.js"></script>
+<script src = "js/card.js"></script>
+<script src = "js/pin.js"></script>
+<script src = "js/map.js"></script>
+<script src = "js/form.js"></script>
+
 </body>
 </html>
