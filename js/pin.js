@@ -1,8 +1,8 @@
 'use strict';
 
 (function () {
-  var PIN_WIDTH = 40;
   var PIN_HEIGHT = 40;
+  var PIN_WIDTH = 40;
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var pin = document.querySelector('.pin');
   var dialog = document.querySelector('.dialog');
