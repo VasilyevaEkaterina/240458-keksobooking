@@ -50,7 +50,7 @@
         'offer': {
           'title': window.data.getRandomNoRepeat(PROPERTY_TITLE),
           'address': '',
-          'price': window.data.getRandomFromRange(1000, 1000000) + '&#x20bd;/ночь',
+          'price': window.data.getRandomFromRange(1000, 1000000),
           'type': window.data.getRandomRepeat(PROPERTY_TYPE),
           'rooms': window.data.getRandomFromRange(1, MAX_ROOMS),
           'guests': window.data.getRandomFromRange(1, MAX_GUESTS),

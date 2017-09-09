@@ -43,14 +43,16 @@
     var templateElement = template.cloneNode(true);
     templateElement.querySelector('.lodge__title').textContent = arr.offer.title;
     templateElement.querySelector('.lodge__address').textContent = arr.offer.address;
-    templateElement.querySelector('.lodge__price').innerHTML = arr.offer.price;
+    templateElement.querySelector('.lodge__price').textContent = arr.offer.price + ' ' + '\u20BD/ночь';
     templateElement.querySelector('.lodge__type').textContent = PROPERTY_TYPE_RU[arr.offer.type];
     templateElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + arr.offer.guests + ' гостей в ' + arr.offer.rooms + ' комнатах';
     templateElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + arr.offer.checkin + ' , выезд до ' + arr.offer.checkout;
-    var propertyFeatures = arr.offer.features;
-    for (var i = 0; i < propertyFeatures.length; i++) {
-      templateElement.querySelector('.lodge__features').innerHTML += '<span class = "feature__image feature__image--' + propertyFeatures[i] + '"></span>';
-    }
+
+    arr.offer.features.forEach(function (item) {
+      var span = document.createElement('span');
+      span.className = 'feature__image feature__image--' + item;
+      templateElement.querySelector('.lodge__features').appendChild(span);
+    });
     templateElement.querySelector('.lodge__description').textContent = arr.offer.description;
     return templateElement;
   };
