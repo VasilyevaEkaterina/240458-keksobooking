@@ -46,15 +46,19 @@
     '14:00'
   ];
 
-  var syncElements = function (selectedElement, syncElement, selectedArr, syncArr) {
+  var syncValues = function (selectedElement, syncElement, selectedArr, syncArr) {
     syncElement.value = syncArr[selectedArr.indexOf(selectedElement.value)];
   };
 
-  window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncElements);
-  window.synchronizeFields(timeOut, timeIn, timeValues, timeValues, syncElements);
-  window.synchronizeFields(type, price, typeValues, priceValues, syncElements);
-  window.synchronizeFields(price, type, priceValues, typeValues, syncElements);
-  window.synchronizeFields(rooms, capacity, roomsValues, capacityValues, syncElements);
-  window.synchronizeFields(rooms, capacity, roomsValues, capacityValues, syncElements);
+  var syncValueWithMin = function (selectedElement, syncElement, selectedArr, syncArr) {
+    syncElement.min = syncArr[selectedArr.indexOf(selectedElement.value)];
+    syncElement.value = syncArr[selectedArr.indexOf(selectedElement.value)];
+  };
+
+  window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncValues);
+  window.synchronizeFields(timeOut, timeIn, timeValues, timeValues, syncValues);
+  window.synchronizeFields(type, price, typeValues, priceValues, syncValueWithMin);
+  window.synchronizeFields(rooms, capacity, roomsValues, capacityValues, syncValues);
+  window.synchronizeFields(capacity, rooms, capacityValues, roomsValues, syncValues);
 
 })();
