@@ -5,11 +5,10 @@
   var PIN_WIDTH = 40;
   var tokyoPinMap = document.querySelector('.tokyo__pin-map');
   var pin = document.querySelector('.pin');
-  var dialog = document.querySelector('.dialog');
 
   var close = function () {
     window.data.closePin();
-    dialog.classList.add('hidden');
+    window.showCard.dialog.classList.add('hidden');
   };
 
   var onEscPress = function (evt) {
