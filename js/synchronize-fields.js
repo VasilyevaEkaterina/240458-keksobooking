@@ -1,9 +1,9 @@
 'use strict';
 
 (function () {
-  window.synchronizeFields = function (selectedElement, syncElement, callback) {
+  window.synchronizeFields = function (selectedElement, syncElement, selectedArr, syncArr, callback) {
     selectedElement.addEventListener('change', function () {
-      callback(syncElement, selectedElement.value);
+      callback(selectedElement, syncElement, selectedArr, syncArr);
     });
   };
 })();

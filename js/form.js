@@ -9,40 +9,52 @@
   var type = form.querySelector('#type');
   var price = form.querySelector('#price');
 
-  var roomNumber = form.querySelector('#room_number');
+  var rooms = form.querySelector('#room_number');
   var capacity = form.querySelector('#capacity');
 
-  window.synchronizeFields(timeIn, timeOut, syncElements);
-  window.synchronizeFields(roomNumber, capacity, syncRoomAndCapacity);
-  window.synchronizeFields(type, price, syncTimeAndPrice);
+  var typeValues = [
+    'bungalo',
+    'flat',
+    'house',
+    'palace'
+  ];
 
-  function syncElements(syncValue, selectedValue) {
-    syncValue.value = selectedValue;
-  }
-  function syncRoomAndCapacity(syncValue, selectedValue) {
-    if (selectedValue === '1') {
-      syncValue.value = 1;
-    } else if (selectedValue === '2') {
-      syncValue.value = 2;
-    } else if (selectedValue === '3') {
-      syncValue.value = 3;
-    } else if (selectedValue === '100') {
-      syncValue.value = 0;
-    }
-  }
-  function syncTimeAndPrice(syncValue, selectedValue) {
-    if (selectedValue === 'flat') {
-      syncValue.min = 1000;
-      syncValue.value = 1000;
-    } else if (selectedValue === 'bungalo') {
-      syncValue.min = 0;
-      syncValue.value = 0;
-    } else if (selectedValue === 'house') {
-      syncValue.min = 5000;
-      syncValue.value = 5000;
-    } else if (selectedValue === 'palace') {
-      syncValue.min = 10000;
-      syncValue.value = 10000;
-    }
-  }
+  var priceValues = [
+    '0',
+    '1000',
+    '5000',
+    '10000'
+  ];
+
+  var roomsValues = [
+    '1',
+    '2',
+    '3',
+    '100'
+  ];
+
+  var capacityValues = [
+    '0',
+    '1',
+    '2',
+    '3'
+  ];
+
+  var timeValues = [
+    '12:00',
+    '13:00',
+    '14:00'
+  ];
+
+  var syncElements = function (selectedElement, syncElement, selectedArr, syncArr) {
+    syncElement.value = syncArr[selectedArr.indexOf(selectedElement.value)];
+  };
+
+  window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncElements);
+  window.synchronizeFields(timeOut, timeIn, timeValues, timeValues, syncElements);
+  window.synchronizeFields(type, price, typeValues, priceValues, syncElements);
+  window.synchronizeFields(price, type, priceValues, typeValues, syncElements);
+  window.synchronizeFields(rooms, capacity, roomsValues, capacityValues, syncElements);
+  window.synchronizeFields(rooms, capacity, roomsValues, capacityValues, syncElements);
+
 })();
