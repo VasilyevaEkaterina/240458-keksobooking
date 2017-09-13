@@ -4,6 +4,9 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
 
+  var DEBOUNCE_TIME = 300;
+  var lastTimeout;
+
   window.data = {
     isEscEvent: function (evt, action) {
       if (evt.keyCode === ESC_KEYCODE) {
@@ -14,6 +17,12 @@
     isEnterEvent: function (evt, action) {
       if (evt.keyCode === ENTER_KEYCODE) {
         action();
+      }
+    },
+
+    closePin: function () {
+      if (document.querySelector('.pin--active')) {
+        document.querySelector('.pin--active').classList.remove('pin--active');
       }
     },
 
@@ -54,10 +63,11 @@
       return arr;
     },
 
-    closePin: function () {
-      if (document.querySelector('.pin--active')) {
-        document.querySelector('.pin--active').classList.remove('pin--active');
+    debounce: function (callback) {
+      if (lastTimeout) {
+        window.clearTimeout(lastTimeout);
       }
+      lastTimeout = window.setTimeout(callback, DEBOUNCE_TIME);
     }
   };
 })();

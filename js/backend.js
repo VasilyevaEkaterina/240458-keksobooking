@@ -3,11 +3,11 @@
 window.backend = (function () {
   var URL = 'https://1510.dump.academy/keksobooking';
 
-  var getData = function (onLoad, onError) {
+  var getData = function (onSuccess, onError) {
 
     var error = {
       '200': function () {
-        onLoad(xhr.response);
+        onSuccess(xhr.response);
       },
       '400': function () {
         onError('Неверный запрос');
@@ -40,14 +40,14 @@ window.backend = (function () {
 
 
   return {
-    load: function (onLoad, onError) {
-      var xhr = getData(onLoad, onError);
+    load: function (onSuccess, onError) {
+      var xhr = getData(onSuccess, onError);
 
       xhr.open('GET', URL + '/data');
       xhr.send();
     },
-    save: function (data, onLoad, onError) {
-      var xhr = getData(onLoad, onError);
+    save: function (data, onSuccess, onError) {
+      var xhr = getData(onSuccess, onError);
 
       xhr.open('POST', URL);
       xhr.send(data);
