@@ -1,76 +1,73 @@
 'use strict';
 
-(function () {
-  var PIN_HEIGHT = 40;
-  var PIN_WIDTH = 40;
-  var tokyoPinMap = document.querySelector('.tokyo__pin-map');
-  var pin = document.querySelector('.pin');
+window.pin = (function () {
 
-  var close = function () {
-    window.data.closePin();
-    window.showCard.dialog.classList.add('hidden');
-  };
+  var createPinElement = function (pin) {
 
-  var onEscPress = function (evt) {
-    window.data.isEscEvent(evt, close);
-  };
-
-  var activatePin = function (evt) {
-    if (document.querySelector('.pin--active')) {
-      document.querySelector('.pin--active').classList.remove('pin--active');
-    }
-    evt.currentTarget.classList.add('pin--active');
-    document.addEventListener('keydown', onEscPress);
-  };
-
-  var onPinPress = function (evt) {
-
-    window.data.isEnterEvent(evt, function () {
-      return activatePin(evt);
-    });
-  };
-
-  var onPinClick = function (evt) {
-    activatePin(evt);
-  };
-
-
-  var renderPin = function (obj) {
-
-    var pinElement = pin.cloneNode(true);
-
-    var onPinPressAppendTemplate = function (evt) {
-      window.data.isEnterEvent(evt, function () {
-        return window.card.appendTemplate(obj);
-      });
+    var img = {
+      PIN_WIDTH: 40,
+      PIN_HEIGHT: 40,
+      CLASS_NAME: 'rounded'
     };
 
-    var onPinClickAppendTemplate = function () {
-      window.card.appendTemplate(obj);
-    };
+    var PIN_CLASS_NAME = 'pin';
+    var PIN_TAB_INDEX = '0';
 
-    pinElement.addEventListener('click', onPinClickAppendTemplate, true);
-    pinElement.addEventListener('keydown', onPinPressAppendTemplate, true);
-    pinElement.addEventListener('click', onPinClick, true);
-    pinElement.addEventListener('keydown', onPinPress, true);
+    var pinElement = document.createElement('div');
+    var imgElement = document.createElement('img');
 
-    pinElement.classList.remove('pin__main');
-    pinElement.tabIndex = '0';
-    pinElement.querySelector('img').src = obj.author.avatar;
-    pinElement.style = 'left: ' + (obj.location.x - PIN_WIDTH / 2) + 'px; top: ' + (obj.location.y - PIN_HEIGHT) + 'px';
+    pinElement.className = PIN_CLASS_NAME;
+    pinElement.style.left = pin.location.x - pinElement.offsetWidth / 2 + 'px';
+    pinElement.style.top = pin.location.y - pinElement.offsetHeight + 'px';
+    pinElement.tabIndex = PIN_TAB_INDEX;
+
+    imgElement.className = img.CLASS_NAME;
+    imgElement.src = pin.author.avatar;
+    imgElement.width = img.PIN_WIDTH;
+    imgElement.height = img.PIN_HEIGHT;
+
+    pinElement.appendChild(imgElement);
 
     return pinElement;
   };
 
-
-  window.pin = {
-    appendPins: function (arr) {
-      var fragment = document.createDocumentFragment();
-      for (var i = 0; i < arr.length; i++) {
-        fragment.appendChild(renderPin(arr[i]));
-      }
-      tokyoPinMap.appendChild(fragment);
-    }
+  var activatePin = function (pin) {
+    pin.classList.add('pin--active');
   };
 
+  var openPinDialog = function (evt, ad) {
+    var target = evt.currentTarget;
+
+    window.pin.deactivePin();
+    activatePin(target);
+    window.card.showDialog(ad);
+  };
+
+  var initPinHandlers = function (node, ad) {
+    node.addEventListener('click', function (evt) {
+      openPinDialog(evt, ad);
+    });
+
+    node.addEventListener('keydown', function (evt) {
+      if (window.util.isEnterPressed(evt.keyCode)) {
+        openPinDialog(evt, ad);
+      }
+    });
+  };
+
+  return {
+
+    createPin: function (ad) {
+      var node = createPinElement(ad);
+      initPinHandlers(node, ad);
+      return node;
+    },
+
+    deactivePin: function () {
+      var activePin = document.querySelector('.pin--active');
+      if (activePin) {
+        activePin.classList.remove('pin--active');
+      }
+    }
+  };
 })();

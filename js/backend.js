@@ -33,7 +33,7 @@ window.backend = (function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
 
-    xhr.timeout = 2000;
+    xhr.timeout = 5000;
 
     return xhr;
   };

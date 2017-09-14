@@ -59,8 +59,8 @@ window.filters = (function () {
     filteredElements(rooms, 'rooms');
     filteredElements(guests, 'guests');
 
-    filteredOffers.forEach(function () {
-      window.pin.appendPins();
+    filteredOffers.forEach(function (element) {
+      fragment.appendChild(window.pin.createPin(element));
     });
 
     tokyoPinMap.appendChild(fragment);
@@ -68,7 +68,7 @@ window.filters = (function () {
   };
 
   filters.addEventListener('change', function () {
-    window.data.debounce(updatePins(offers));
+    window.util.debounce(updatePins(offers));
   });
 
   return updatePins;
