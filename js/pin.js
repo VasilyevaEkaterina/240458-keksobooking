@@ -14,12 +14,13 @@ window.pin = (function () {
     var PIN_TAB_INDEX = '0';
 
     var pinElement = document.createElement('div');
-    var imgElement = document.createElement('img');
 
     pinElement.className = PIN_CLASS_NAME;
     pinElement.style.left = pin.location.x - pinElement.offsetWidth / 2 + 'px';
     pinElement.style.top = pin.location.y - pinElement.offsetHeight + 'px';
     pinElement.tabIndex = PIN_TAB_INDEX;
+
+    var imgElement = document.createElement('img');
 
     imgElement.className = img.CLASS_NAME;
     imgElement.src = pin.author.avatar;
@@ -35,31 +36,31 @@ window.pin = (function () {
     pin.classList.add('pin--active');
   };
 
-  var openPinDialog = function (evt, ad) {
+  var openPinDialog = function (evt, property) {
     var target = evt.currentTarget;
 
     window.pin.deactivePin();
     activatePin(target);
-    window.card.showDialog(ad);
+    window.card.showDialog(property);
   };
 
-  var initPinHandlers = function (node, ad) {
+  var initPinHandlers = function (node, property) {
     node.addEventListener('click', function (evt) {
-      openPinDialog(evt, ad);
+      openPinDialog(evt, property);
     });
 
     node.addEventListener('keydown', function (evt) {
       if (window.util.isEnterPressed(evt.keyCode)) {
-        openPinDialog(evt, ad);
+        openPinDialog(evt, property);
       }
     });
   };
 
   return {
 
-    createPin: function (ad) {
-      var node = createPinElement(ad);
-      initPinHandlers(node, ad);
+    createPin: function (property) {
+      var node = createPinElement(property);
+      initPinHandlers(node, property);
       return node;
     },
 

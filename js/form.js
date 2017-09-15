@@ -62,7 +62,7 @@
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  var succesHandler = function () {
+  var successHandler = function () {
     var invalidElements = form.querySelectorAll('.invalid');
 
     [].forEach.call(invalidElements, function (element) {
@@ -86,7 +86,7 @@
 
     evt.preventDefault();
 
-    window.backend.save(new FormData(form), succesHandler, errorHandler);
+    window.backend.save(new FormData(form), successHandler, errorHandler);
   };
 
   window.synchronizeFields(timeIn, timeOut, timeValues, timeValues, syncValues);

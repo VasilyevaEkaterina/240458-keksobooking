@@ -2,7 +2,7 @@
 
 window.map = (function () {
 
-  var succesHandler = function (offers) {
+  var successHandler = function (offers) {
     window.filters(offers);
   };
 
@@ -15,6 +15,6 @@ window.map = (function () {
 
   window.card.hideDialog();
 
-  window.backend.load(succesHandler, errorHandler);
+  window.backend.load(successHandler, errorHandler);
 
 })();

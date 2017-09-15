@@ -2,7 +2,7 @@
 
 window.data = (function () {
 
-  var getImage = function (number) {
+  var getImg = function (number) {
     return number > 9 ? 'img/avatars/user' + number + '.png' : 'img/avatars/user' + '0' + number + '.png';
   };
 
@@ -64,7 +64,7 @@ window.data = (function () {
 
       var property = {
         'author': {
-          'avatar': getImage(index + 1),
+          'avatar': getImg(index + 1),
         },
         'offer': {
           'title': window.util.getRandomElement(window.data.pinDetails.TITLES),

@@ -8,54 +8,41 @@ window.card = (function () {
 
   var template = document.querySelector('#lodge-template').content;
 
-  var createTemplate = function (ad) {
+  var createTemplate = function (property) {
 
     var templateElement = template.cloneNode(true);
 
-    var adTitle = templateElement.querySelector('.lodge__title');
-    var adAddress = templateElement.querySelector('.lodge__address');
-    var adPrice = templateElement.querySelector('.lodge__price');
-    var adType = templateElement.querySelector('.lodge__type');
-    var adRoomsAndGuest = templateElement.querySelector('.lodge__rooms-and-guests');
-    var adTime = templateElement.querySelector('.lodge__checkin-time');
-    var adFeatures = templateElement.querySelector('.lodge__features');
-    var adDescription = templateElement.querySelector('.lodge__description');
-    var adPhotos = templateElement.querySelector('.lodge__photos');
+    templateElement.querySelector('.lodge__title').textContent = property.offer.title;
+    templateElement.querySelector('.lodge__address').textContent = property.offer.address;
+    templateElement.querySelector('.lodge__price').textContent = property.offer.price + ' ₽/ночь';
+    templateElement.querySelector('.lodge__type').textContent = window.data.typesRu[property.offer.type];
+    templateElement.querySelector('.lodge__rooms-and-guests').textContent = 'Для ' + property.offer.guests + ' гостей в ' + property.offer.rooms + ' комнатах';
+    templateElement.querySelector('.lodge__checkin-time').textContent = 'Заезд после ' + property.offer.checkin + ', выезд до ' + property.offer.checkout;
+    templateElement.querySelector('.lodge__description').textContent = property.offer.description;
 
-    adTitle.textContent = ad.offer.title;
-    adAddress.textContent = ad.offer.address;
-    adPrice.textContent = ad.offer.price + ' ₽/ночь';
-    adType.textContent = window.data.typesRu[ad.offer.type];
-    adRoomsAndGuest.textContent = 'Для ' + ad.offer.guests + ' гостей в ' + ad.offer.rooms + ' комнатах';
-    adTime.textContent = 'Заезд после ' + ad.offer.checkin + ', выезд до ' + ad.offer.checkout;
-    adDescription.textContent = ad.offer.description;
-    dialogImg.src = ad.author.avatar;
+    var templateFeatures = templateElement.querySelector('.lodge__features');
+    var templatePhotos = templateElement.querySelector('.lodge__photos');
 
-    (ad.offer.photos).forEach(function (element) {
+    dialogImg.src = property.author.avatar;
+
+    (property.offer.photos).forEach(function (element) {
+
       var img = document.createElement('img');
-
       img.src = element;
       img.width = '60';
       img.height = '40';
 
-      adPhotos.appendChild(img);
+      templatePhotos.appendChild(img);
     });
 
-    (ad.offer.features).forEach(function (element) {
+    (property.offer.features).forEach(function (element) {
       var span = document.createElement('span');
 
       span.className = 'feature__image feature__image--' + element;
-      adFeatures.appendChild(span);
+      templateFeatures.appendChild(span);
     });
 
     return templateElement;
-  };
-
-  var onDeactiveElements = function (evt) {
-    if (window.util.isEscPressed(evt.keyCode)) {
-      window.card.hideDialog();
-      window.pin.deactivePin();
-    }
   };
 
   var onCloseWindowClick = function () {
@@ -71,12 +58,11 @@ window.card = (function () {
     }
   };
 
-  var removeEventHandler = function () {
-    var dialogClose = document.querySelector('.dialog__close');
-
-    dialogClose.removeEventListener('click', onCloseWindowClick);
-    dialogClose.removeEventListener('keydown', onCloseWindowKeydown);
-    document.body.removeEventListener('keydown', onDeactiveElements);
+  var onDeactiveElements = function (evt) {
+    if (window.util.isEscPressed(evt.keyCode)) {
+      window.card.hideDialog();
+      window.pin.deactivePin();
+    }
   };
 
   var initEventHandler = function () {
@@ -87,14 +73,22 @@ window.card = (function () {
     document.body.addEventListener('keydown', onDeactiveElements);
   };
 
-  var changeDialogPanel = function (ad) {
+  var removeEventHandler = function () {
+    var dialogClose = document.querySelector('.dialog__close');
+
+    dialogClose.removeEventListener('click', onCloseWindowClick);
+    dialogClose.removeEventListener('keydown', onCloseWindowKeydown);
+    document.body.removeEventListener('keydown', onDeactiveElements);
+  };
+
+  var changeDialogPanel = function (property) {
     var dialogPanel = dialog.querySelector('.dialog__panel');
-    dialog.replaceChild(createTemplate(ad), dialogPanel);
+    dialog.replaceChild(createTemplate(property), dialogPanel);
   };
 
   return {
-    showDialog: function (ad) {
-      changeDialogPanel(ad);
+    showDialog: function (property) {
+      changeDialogPanel(property);
       initEventHandler();
       dialog.style.display = 'block';
     },
